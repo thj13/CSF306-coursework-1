@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Rainbows());
+  runApp(Calculator());
 }
 
 
-class Rainbows extends StatelessWidget {
-  const Rainbows() : super();
+class Calculator extends StatelessWidget {
+  const Calculator() : super();
 
   @override
   Widget build(BuildContext context) {
