@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 void main() {
-  runApp(MaterialApp(
-      home: Calculator()));
+    runApp(const MaterialApp(
+        home: Calculator()
+    )
+  );
 }
-
+///
+/// This class is used to construct the UI design for a simple
+/// calculator containing non-functional stateless widgets
+///
 class Calculator extends StatelessWidget {
   const Calculator() : super();
 
@@ -19,25 +24,15 @@ class Calculator extends StatelessWidget {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                child: Text('0'),
-                height: MediaQuery.of(context).size.height * 0.4,
-                color: Colors.white,
-              ),
+              ResultsSection(display: '0',),
               Row(
-                children: [
+                children: const [
                   LongButton(buttonText: 'C'),
                   OperatorButton(operator: '<-'),
-                  // Container(
-                  //   child: Text('Other element'),
-                  //   height: 100,
-                  //   width: 100,
-                  //   color: Colors.blueGrey,
-                  // ),
                 ],
               ),
               Row(
-                children: [
+                children: const [
                   NumberButton(number: '7'),
                   NumberButton(number: '8'),
                   NumberButton(number: '9'),
@@ -45,7 +40,7 @@ class Calculator extends StatelessWidget {
                 ],
               ),
               Row(
-                children: [
+                children: const [
                   NumberButton(number: '4'),
                   NumberButton(number: '5'),
                   NumberButton(number: '6'),
@@ -53,7 +48,7 @@ class Calculator extends StatelessWidget {
                 ],
               ),
               Row(
-                children: [
+                children: const [
                   NumberButton(number: '1'),
                   NumberButton(number: '2'),
                   NumberButton(number: '3'),
@@ -61,7 +56,7 @@ class Calculator extends StatelessWidget {
                 ],
               ),
               Row(
-                children: [
+                children: const [
                   NumberButton(number: '0'),
                   NumberButton(number: '.'),
                   OperatorButton(operator: '='),
@@ -76,10 +71,42 @@ class Calculator extends StatelessWidget {
   }
 }
 
+///
+/// This class will create a results section for the calculator
+/// this widget is responsive to the screen size and will populate
+/// 40% of the screen height
+///
+class ResultsSection extends StatelessWidget{
+
+  final String display;
+
+  const ResultsSection({Key? key, required this.display}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        display,
+        textAlign: TextAlign.right,
+        style: const TextStyle(
+        fontSize: 50,
+        ),
+      ),
+      height: MediaQuery.of(context).size.height * 0.4,
+      color: Colors.blue[100],
+    );
+  }
+
+}
+
+///
+/// Used to construct a number button on for the calculator
+/// where the button will be black and responsive to screen size
+///
 class NumberButton extends StatelessWidget {
 
   final String number;
-  final Color color = Colors.black87;
+  final Color _color = Colors.black87;
   const NumberButton({ required this.number, Key? key}) : super(key: key);
 
   @override
@@ -91,7 +118,12 @@ class NumberButton extends StatelessWidget {
           color: Colors.white,
           height: MediaQuery.of(context).size.height * 0.1,
           child: ElevatedButton(
-            child: Text(number),
+            child: Text(
+              number,
+              style: const TextStyle(
+                fontSize: 20,
+              ),
+            ),
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               primary: Colors.black,
@@ -103,6 +135,10 @@ class NumberButton extends StatelessWidget {
   }
 }
 
+///
+/// Used to construct an operator button on for the calculator
+/// where the button will be blue and responsive to screen size
+///
 class OperatorButton extends StatelessWidget {
 
   final String operator;
@@ -118,7 +154,12 @@ class OperatorButton extends StatelessWidget {
           color: Colors.white,
           height: MediaQuery.of(context).size.height * 0.1,
           child: ElevatedButton(
-            child: Text(operator),
+            child: Text(
+                operator,
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+            ),
             onPressed: () {},
           ),
         )
@@ -127,6 +168,11 @@ class OperatorButton extends StatelessWidget {
   }
 }
 
+///
+/// Used to construct a clear button on for the calculator
+/// where the button will be grey and responsive to screen size
+/// this widget will take up 75% of screen width
+///
 class LongButton extends StatelessWidget {
 
   final String buttonText;
@@ -142,10 +188,15 @@ class LongButton extends StatelessWidget {
           color: Colors.white,
           height: MediaQuery.of(context).size.height * 0.1,
           child: ElevatedButton(
-            child: Text(buttonText),
+            child: Text(
+                buttonText,
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+            ),
             onPressed: () {},
             style: ElevatedButton.styleFrom(
-              primary: Colors.grey,
+              primary: Colors.grey[600],
             ),
           ),
         )
