@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() {
-  runApp(Calculator());
+  runApp(MaterialApp(
+      home: Calculator()));
 }
-
 
 class Calculator extends StatelessWidget {
   const Calculator() : super();
@@ -16,14 +17,23 @@ class Calculator extends StatelessWidget {
             title: const Text('Flutter Calculator'),
           ),
           body: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                child: Text('Results go here'),
+                child: Text('0'),
+                height: MediaQuery.of(context).size.height * 0.4,
+                color: Colors.white,
               ),
               Row(
                 children: [
-                  Text('Cancel bar element one'),
-                  Text('Cancel bar element two'),
+                  LongButton(buttonText: 'C'),
+                  OperatorButton(operator: '<-'),
+                  // Container(
+                  //   child: Text('Other element'),
+                  //   height: 100,
+                  //   width: 100,
+                  //   color: Colors.blueGrey,
+                  // ),
                 ],
               ),
               Row(
@@ -31,7 +41,7 @@ class Calculator extends StatelessWidget {
                   NumberButton(number: '7'),
                   NumberButton(number: '8'),
                   NumberButton(number: '9'),
-                  Text('/ Button here'),
+                  OperatorButton(operator: '/'),
                 ],
               ),
               Row(
@@ -39,7 +49,7 @@ class Calculator extends StatelessWidget {
                   NumberButton(number: '4'),
                   NumberButton(number: '5'),
                   NumberButton(number: '6'),
-                  Text('x Button here'),
+                  OperatorButton(operator: 'x'),
                 ],
               ),
               Row(
@@ -47,36 +57,22 @@ class Calculator extends StatelessWidget {
                   NumberButton(number: '1'),
                   NumberButton(number: '2'),
                   NumberButton(number: '3'),
-                  Text('- Button here'),
+                  OperatorButton(operator: '-'),
                 ],
               ),
               Row(
                 children: [
                   NumberButton(number: '0'),
                   NumberButton(number: '.'),
-                  Text('= Button here'),
-                  Text('+ Button here'),
+                  OperatorButton(operator: '='),
+                  OperatorButton(operator: '+'),
                 ],
               ),
             ],
           ),
-
-          bottomNavigationBar: Text('Buttons of some shape go here'),
+          // bottomNavigationBar: Text('Buttons of some shape go here'),
         )
     );
-  }
-}
-
-class RainbowSlice extends StatelessWidget {
-  final Color color;
-  const RainbowSlice({required this.color, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(child: Container(color: color, child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text('hello', style: TextStyle(fontSize: 32)),
-    )));
   }
 }
 
@@ -90,12 +86,70 @@ class NumberButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Expanded(
+        flex: 25,
         child: Container(
-            color: color,
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height * 0.1,
+          child: ElevatedButton(
             child: Text(number),
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              primary: Colors.black,
+            ),
+          ),
         )
     );
 
   }
+}
 
+class OperatorButton extends StatelessWidget {
+
+  final String operator;
+  final Color color = Colors.blue;
+  const OperatorButton({ required this.operator, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Expanded(
+        flex: 25,
+        child: Container(
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height * 0.1,
+          child: ElevatedButton(
+            child: Text(operator),
+            onPressed: () {},
+          ),
+        )
+    );
+
+  }
+}
+
+class LongButton extends StatelessWidget {
+
+  final String buttonText;
+  final Color color = Colors.grey;
+  const LongButton({ required this.buttonText, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Expanded(
+        flex: 75,
+        child: Container(
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height * 0.1,
+          child: ElevatedButton(
+            child: Text(buttonText),
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              primary: Colors.grey,
+            ),
+          ),
+        )
+    );
+
+  }
 }
